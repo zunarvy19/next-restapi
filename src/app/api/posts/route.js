@@ -20,3 +20,27 @@ export async function GET() {
     }
   );
 }
+
+export async function POST(request) {
+  // get requests
+  const { title, content } = await request.json();
+
+  // create data
+  const post = await prisma.post.create({
+    data: {
+      title: title,
+      content: content,
+    },
+  });
+  // return response json
+  return NextResponse.json(
+    {
+      success: true,
+      message: "Post Created Successfully",
+      data: post,
+    },
+    {
+      status: 201,
+    }
+  );
+}
